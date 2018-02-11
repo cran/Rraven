@@ -4,7 +4,10 @@
 library(warbleR)
 library(Rraven)
 library(knitr)
+library(dplyr)
+library(kableExtra)
 
+options(knitr.table.format = "html") 
 opts_chunk$set(comment = "")
 opts_knit$set(root.dir = tempdir())
 options(width = 150, max.print = 100)
@@ -91,10 +94,11 @@ list.files(path = tempdir(), pattern = "\\.txt$")
  #providing the name of the column with the sound file names
 rvn.dat <- imp_raven(all.data = TRUE, path = tempdir())
 
-kable(head(rvn.dat[,1:5]), align = "c", row.names = F)
+knitr::kable(head(rvn.dat[,1:7]), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
 
-kable(head(rvn.dat[,6:ncol(rvn.dat)]), align = "c", row.names = F)
-
+knitr::kable(head(rvn.dat[ , 8:ncol(rvn.dat)]), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
 #  
@@ -107,7 +111,8 @@ kable(head(rvn.dat[,6:ncol(rvn.dat)]), align = "c", row.names = F)
 
 rvn.dat <- imp_raven(all.data = TRUE, path = tempdir(), waveform = TRUE)
 
-kable(head(rvn.dat), format = "html")
+knitr::kable(head(rvn.dat), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
 
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
@@ -122,8 +127,8 @@ kable(head(rvn.dat), format = "html")
  #providing the name of the column with the sound file names
 rvn.dat <- imp_raven(sound.file.col = "Begin.File", all.data = FALSE, freq.cols = TRUE)
 
-knitr::kable(head(rvn.dat), align = "c", row.names = FALSE)
-
+knitr::kable(head(rvn.dat), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
 
 ## ---- eval=FALSE, echo=TRUE-------------------------------------------------------------------------------------------------------------------------
 #  
@@ -142,8 +147,11 @@ rvn.dat.st <- make.selection.table(rvn.dat)
 
 sp <- specan(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90)
 
-knitr::kable(head(sp[,1:6]), align = "c", row.names = FALSE)
-knitr::kable(head(sp[,6:15]), align = "c", row.names = FALSE)
+knitr::kable(head(sp[ , 1:8]), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
+
+knitr::kable(head(sp[ , 9:15]), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
 
 
 ## ---- eval = FALSE----------------------------------------------------------------------------------------------------------------------------------
@@ -184,10 +192,12 @@ rvn.dat <- imp_raven(all.data = TRUE)
 # Peak freq contour dif length
 fcts <- extract_ts(X = rvn.dat, ts.column = "Peak.Freq.Contour..Hz.")
  
+knitr::kable(head(fcts[ , 1:14]), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
 
-knitr::kable(head(fcts[ ,1:14]), align = "c", row.names = FALSE)
-knitr::kable(head(fcts[ ,39:53]), align = "c", row.names = FALSE)
- 
+knitr::kable(head(fcts[ , 39:53]), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
+
 
 ## ---- eval=F, echo=T--------------------------------------------------------------------------------------------------------------------------------
 #  
@@ -204,7 +214,8 @@ knitr::kable(head(fcts[ ,39:53]), align = "c", row.names = FALSE)
 fcts <- extract_ts(X = rvn.dat, ts.column = "Peak.Freq.Contour..Hz.",
  equal.length = TRUE)
 
-knitr::kable(head(fcts[ ,21:32]), align = "c", row.names = FALSE)
+knitr::kable(head(fcts[ , 21:32]), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
  
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
@@ -223,13 +234,22 @@ knitr::kable(head(fcts[ ,21:32]), align = "c", row.names = FALSE)
 fcts <- extract_ts(X = rvn.dat, ts.column = "Peak.Freq.Contour..Hz.", 
 equal.length = T, length.out = 10)  
 
-knitr::kable(head(fcts), align = "c", row.names = FALSE)
+knitr::kable(head(fcts), align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
 
 
+## ---- eval=F, echo=T--------------------------------------------------------------------------------------------------------------------------------
+#  
+#  dfDTW(ts.df = fcts)
+#  
 
-## ---------------------------------------------------------------------------------------------------------------------------------------------------
+## ---- eval=T, echo=F--------------------------------------------------------------------------------------------------------------------------------
 
-dfDTW(ts.df = fcts)
+knitr::kable(dfDTW(ts.df = fcts)[1:6, 1:6], align = "c", row.names = T, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = T, font_size = 12) %>%
+  row_spec(0, angle = 0)
+
+
 
 
 ## ---- eval = F, echo = T----------------------------------------------------------------------------------------------------------------------------
@@ -246,7 +266,9 @@ dfDTW(ts.df = fcts)
 st1 <- rvn.dat[ ,1:7]
 
 #check original column names
-kable(st1, align = "c", row.names = FALSE)
+knitr::kable(st1, align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
+
 
 ## ---- eval = F, echo = T----------------------------------------------------------------------------------------------------------------------------
 #  # Relabel the basic columns required by warbleR
@@ -257,7 +279,9 @@ kable(st1, align = "c", row.names = FALSE)
 rc <- relabel_colms(st1)
 
 #check original column names
-kable(rc, align = "c", row.names = FALSE)
+knitr::kable(rc, align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
+
 
 ## ---- eval = F, echo = T----------------------------------------------------------------------------------------------------------------------------
 #  
@@ -273,7 +297,9 @@ kable(rc, align = "c", row.names = FALSE)
 rc <- relabel_colms(st1, extra.cols.name = c("selec.file", "View"),
  c("Raven selection file", "Raven view"))
 
-kable(rc, align = "c", row.names = F)
+knitr::kable(rc, align = "c", row.names = F, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
+
 
 ## ---- eval=F, echo=T--------------------------------------------------------------------------------------------------------------------------------
 #  
@@ -305,11 +331,25 @@ writeLines(selection_files[[6]], con = names(selection_files)[6])
 xcorr.rav <- imp_corr_mat(file = "BatchCorrOutput.txt", path = tempdir())
 
 
-## ---- eval=T----------------------------------------------------------------------------------------------------------------------------------------
-xcorr.rav$correlation[1:5, 1:5]
+## ---- eval=F----------------------------------------------------------------------------------------------------------------------------------------
+#  xcorr.rav$correlation[1:5, 1:5]
 
-## ---- eval=T----------------------------------------------------------------------------------------------------------------------------------------
-xcorr.rav$`lag (s)`[1:5, 1:5]
+## ---- eval=T, echo=F--------------------------------------------------------------------------------------------------------------------------------
+
+knitr::kable(xcorr.rav$correlation[1:5, 1:5], align = "c", row.names = T, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = T, font_size = 12) %>%
+  row_spec(0, angle = 0)
+
+
+## ---- eval=F----------------------------------------------------------------------------------------------------------------------------------------
+#  xcorr.rav$`lag (s)`[1:5, 1:5]
+#  
+
+## ---- eval=T, echo=F--------------------------------------------------------------------------------------------------------------------------------
+
+knitr::kable(xcorr.rav$`lag (s)`[1:5, 1:5], align = "c", row.names = T, escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = T, font_size = 12) %>%
+  row_spec(0, angle = 0)
 
 
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------
