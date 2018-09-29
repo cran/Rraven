@@ -6,7 +6,7 @@
 \usage{
 imp_raven(path = NULL, sound.file.col = NULL, all.data = FALSE, recursive = FALSE,
  name.from.file = FALSE, ext.case = NULL, freq.cols = TRUE, waveform = FALSE, 
- parallel = 1, pb = TRUE, unread = FALSE, rm_dup = FALSE)
+ parallel = 1, pb = TRUE, unread = FALSE, rm.dup = FALSE)
 }
 \arguments{
 \item{path}{A character string indicating the path of the directory in which to look for the 'Raven' selection (text) files. 
@@ -44,7 +44,7 @@ It specifies the number of cores to be used. Default is 1 (i.e. no parallel comp
 \item{unread}{Logical. If \code{TRUE} a list (instead of a data frame). The first element of the list contains the selections\
 whole the second one is a character vector with the names of sound files that could not be read. Default is \code{FALSE}.}
 
-\item{rm_dup}{Logical. If \code{TRUE} duplicated rows are removed. Usefull when 
+\item{rm.dup}{Logical. If \code{TRUE} duplicated rows and columns are removed. Usefull when 
 selection files have been duplicated. Default is \code{FALSE}.}
 }
 \value{
@@ -52,7 +52,9 @@ A single data frame with information of the selection files. If \code{unread = T
  the selection data frame and a vector with the names of files that could not be read (see 'unread' argument).  
  If 'all.data' argument is set to \code{FALSE} the data frame contains the following columns: selec, start, end, and selec.file. 
  If sound.file.col is provided the data frame  will also contain a 'sound.files' column. In addition, all rows with duplicated 
- data are removed. This is useful when both spectrogram and waveform views are included in the 'Raven' selection files. If all.data is set to \code{TRUE} then all columns in the 'Raven' selection files are returned.
+ data are removed. This is useful when both spectrogram and waveform views are included in the 'Raven' selection files. If all.data is set to \code{TRUE} then all columns in the 'Raven' selection files are returned. 
+ If individual selection files contain information about multiple sound files the function will correct the time
+ parameters (start and end) only if 1) the 'File Offset (s)' is also included in the selection file and 2) the sound file column has been provided (using 'sound.file.col' or 'name.from.file' arguments).
 }
 \description{
 \code{imp_raven} imports 'Raven' selection files simultaneously from many files. Files must be in '.txt' format.

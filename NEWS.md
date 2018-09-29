@@ -1,13 +1,14 @@
-# NEWS
+# Version 1.0.3 (Release date: 2018-05-22)
 
-##### Version 1.0.3 (Release date: 2018-05-22)
+## Changes and additions:
+
+* 'detector.name' and 'detector.type' arguments added to 'raven_batch_detec()' to allow the use of custom made detectors 
 
 ## New functions
 
 * to_sound_selection: convert Raven's selection table files to sound selection table files
 
-
-##### Version 1.0.2 (Release date: 2018-03-11)
+# Version 1.0.2 (Release date: 2018-03-11)
 
 ## New functions
 
@@ -22,13 +23,13 @@
 * Parallel and progress bar available in 'imp_raven' function
 * 'hz.to.khz' and 'khz.to.hz' arguments available in 'relabel_colms' function
 
-##### Version 1.0.1 (Release date: 2018-02-11)
+# Version 1.0.1 (Release date: 2018-02-11)
 
 ## Changes and additions:
 
 * Small changes in vignette table appereance
 
-##### Version 1.0.0 (Release date: 2017-11-14)
+# Version 1.0.0 (Release date: 2017-11-14)
 
 * First release
 
