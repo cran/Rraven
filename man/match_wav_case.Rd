@@ -51,7 +51,7 @@ selec.table$sound.files[1] <- gsub("\\\\.wav$", ".WAV", selec.table$sound.files[
     
 }
 \seealso{
-\code{\link{sort_colms}}; \code{\link{relabel_colms}}
+\code{\link{relabel_colms}}
 }
 \author{
 Marcelo Araya-Salas (\email{araya-salas@cornell.edu})
