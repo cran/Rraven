@@ -33,7 +33,7 @@ columns in selection files are returned.
 }
 \description{
 \code{imp_syrinx} imports 'Syrinx' selection data from many files simultaneously. 
-All files must be have the same columns.
+All files must have the same columns.
 }
 \examples{
 \dontrun{
@@ -58,5 +58,5 @@ syr.dat <- imp_syrinx(all.data = TRUE)
 \code{\link{imp_raven}}
 }
 \author{
-Marcelo Araya-Salas (\email{araya-salas@cornell.edu})
+Marcelo Araya-Salas (\email{marceloa27@gmail.com})
 }

@@ -30,7 +30,7 @@
 #' analysis the data can be automatically imported back into R using the 'import'
 #' argument. 'Raven' Pro must be installed. Note that 'Raven' can also take sound files in 'mp3', 'flac' and
 #' 'aif' format.
-#' @seealso \code{\link{imp_raven}}; \code{\link{imp_syrinx}};  \code{\link{run_raven}}  
+#' @seealso \code{\link{imp_raven}}; \code{\link{imp_syrinx}}
 #' @export
 #' @name run_raven
 #' @examples
@@ -66,7 +66,7 @@
 #'   
 #' }
 #' 
-#' @author Marcelo Araya-Salas (\email{araya-salas@@cornell.edu})
+#' @author Marcelo Araya-Salas (\email{marceloa27@@gmail.com})
 #last modification on nov-7-2017
 
 run_raven <- function(raven.path = NULL, sound.files = NULL, path = NULL, at.the.time = 10,

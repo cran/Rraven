@@ -1,7 +1,7 @@
 #' Import 'Syrinx' selections
 #' 
 #' \code{imp_syrinx} imports 'Syrinx' selection data from many files simultaneously. 
-#' All files must be have the same columns.
+#' All files must have the same columns.
 #' @usage imp_syrinx(path = NULL, all.data = FALSE, recursive = FALSE, 
 #' exclude = FALSE, hz.to.khz = TRUE, parallel = 1, pb = TRUE)  
 #' @param path A character string indicating the path of the directory in which to look for the text files. 
@@ -39,7 +39,7 @@
 #' # View(syr.dat)
 #' }
 #' 
-#' @author Marcelo Araya-Salas (\email{araya-salas@@cornell.edu})
+#' @author Marcelo Araya-Salas (\email{marceloa27@@gmail.com})
 #last modification on nov-7-2017
 
 imp_syrinx <- function(path = NULL, all.data = FALSE, recursive = FALSE,

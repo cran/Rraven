@@ -116,7 +116,7 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
 #   #providing the name of the column with the sound file names
-#  rvn.dat <- imp_raven(sound.file.col = "End.File", all.data = FALSE, freq.cols = TRUE)
+#  rvn.dat <- imp_raven(sound.file.col = "End.File", warbler.format =  TRUE)
 #  
 #  head(rvn.dat)
 #  
@@ -124,7 +124,7 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 ## ---- eval=TRUE, echo=FALSE-------------------------------------------------------------------------------------------------------------------------
 
  #providing the name of the column with the sound file names
-rvn.dat <- imp_raven(sound.file.col = "Begin.File", all.data = FALSE, freq.cols = TRUE)
+rvn.dat <- imp_raven(sound.file.col = "End.File", warbler.format =  TRUE)
 
 kbl <- kable(head(rvn.dat), align = "c", row.names = F, escape = FALSE)
 

@@ -26,7 +26,7 @@ selection file into Raven). Default is \code{NULL}. This argument is required wh
 exporting selections from multiple sound files.}
 
 \item{single.file}{Logical. Controls whether a single selection file (\code{TRUE}; default)
-or multiple selection files for each sound file (\code{FALSE}, hence, only applicable
+or a selection file for each sound file (\code{FALSE}, hence, only applicable
 when several sound files are included in 'X') are generated. Note that
 'sound.file.path' must be provided when exporting several sound files into a single selection file as the
 duration of the sound files is required.}
@@ -80,5 +80,5 @@ exp_raven(X = selec.table, file.name = "Phaethornis multiple sound files",
 \code{\link{imp_raven}}; \code{\link{imp_syrinx}}
 }
 \author{
-Marcelo Araya-Salas (\email{araya-salas@cornell.edu})
+Marcelo Araya-Salas (\email{marceloa27@gmail.com})
 }

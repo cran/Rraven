@@ -16,7 +16,7 @@
 #' selection file into Raven). Default is \code{NULL}. This argument is required when
 #' exporting selections from multiple sound files.
 #' @param single.file Logical. Controls whether a single selection file (\code{TRUE}; default)
-#' or multiple selection files for each sound file (\code{FALSE}, hence, only applicable
+#' or a selection file for each sound file (\code{FALSE}, hence, only applicable
 #' when several sound files are included in 'X') are generated. Note that
 #' 'sound.file.path' must be provided when exporting several sound files into a single selection file as the
 #' duration of the sound files is required.
@@ -58,7 +58,7 @@
 #' exp_raven(X = selec.table, file.name = "Phaethornis multiple sound files",
 #'  single.file = TRUE, sound.file.path = getwd())
 #' 
-#' @author Marcelo Araya-Salas (\email{araya-salas@@cornell.edu})
+#' @author Marcelo Araya-Salas (\email{marceloa27@@gmail.com})
 #last modification on oct-12-2018
 exp_raven <- function(X, path = NULL, file.name = NULL, khz.to.hz = TRUE, sound.file.path = NULL, single.file = TRUE, parallel = 1, pb = TRUE){
   
