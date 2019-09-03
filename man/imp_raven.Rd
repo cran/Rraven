@@ -28,11 +28,11 @@ be filled with NA's. This argument WILL BE DEPRECATED as it is being replaced by
 \item{name.from.file}{Logical. If \code{TRUE} the sound file names are extracted from the selection text file name. 
 It asssumes that selections files contained the suffix "Table.1.selections.txt" or "selections.txt". 
 Note that by default it will assume that the extension file name is ".wav". This can be control using the
-argumet 'ext.wav'. Default is \code{FALSE}). Ignored if sound.file.col' is provided and/or all.data is \code{TRUE}).}
+argument 'ext.case'. Default is \code{FALSE}). Ignored if sound.file.col' is provided and/or all.data is \code{TRUE}). Note that
+the time information for selection tables with multiple sound files won't be corrected if \code{name.from.file = TRUE}.}
 
 \item{ext.case}{Character string of length 1 to specify whether sound file extensions are in upper or lower case. This should match the extension of the
-of the .wav files from which the selection were made. It must be either 'upper' or 'lower'. Only needed when 'name.from.file' is \code{TRUE}. 
-Ignored if 'sound.file.col' is provided and/or all.data is \code{TRUE}.}
+of the .wav files from which the selection were made. It must be either 'upper' or 'lower'. Only needed when 'name.from.file' is \code{TRUE}.}
 
 \item{freq.cols}{Logical. If \code{TRUE} 'Low Freq' and 'High Freq' columns are also imported. Ignored if all.data is \code{TRUE}.}
 
@@ -50,7 +50,7 @@ whole data. The second and third elements are character vectors with the names o
 selection files have been duplicated. Default is \code{FALSE}.}
 
 \item{sound.file.col}{A character string with the name of the column containing the sound files in 
-the selection text files. Default is \code{NULL}. This argument WILL BE DEPRECATED as the function now searches for columns containing the sound file names.}
+the selection text files. Default is \code{NULL}. Ignored if 'name.from.file' is \code{TRUE} and/or all.data is \code{TRUE}. This argument WILL BE DEPRECATED as the function now searches for columns containing the sound file names.}
 }
 \value{
 A single data frame with information of the selection files. If \code{unread = TRUE} the function returns a list of length 3 with
@@ -64,23 +64,20 @@ A single data frame with information of the selection files. If \code{unread = T
 }
 \details{
 The function import 'Raven' selection data from many files simultaneously. All selection files in the working directory or 'path' supplied will be imported (unless 'files' argument is also supplied). It has been created using Raven Pro 1.5 so selection tables created with other versions might not be read properly. Files must be in '.txt' format. Selection 
-files including data from mulitple recordings can also be imported.
+files including data from mulitple recordings can also be imported, although they must contained a 'File Offset (s)' column. Selections that span across multiple sound files are not recommended as they will be assigned to the first sound file, which would produce errors for downstream analyses as those from the 'warbleR' package.
 }
 \examples{
 
 #load data 
 data(selection_files)
 
-# set temporary directory
-# setwd(tempdir())
-
 #save 'Raven' selection tables in the temporary directory 
 out <- lapply(1:2, function(x) 
-writeLines(selection_files[[x]], con = names(selection_files)[x]))
+writeLines(selection_files[[x]], con = file.path(tempdir(), names(selection_files)[x])))
 
 \donttest{
 #providing the name of the column with the sound file names
-rvn.dat <- imp_raven(sound.file.col = "Begin.File", all.data = FALSE)
+rvn.dat <- imp_raven(sound.file.col = "Begin.File", all.data = FALSE, path = tempdir())
 
 # View(rvn.dat)
 }

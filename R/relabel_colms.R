@@ -26,11 +26,11 @@
 #' data(selection_files)
 #' 
 #' #save 'Raven' selection tables in the temporary directory 
-#' writeLines(selection_files[[5]], con = names(selection_files)[5])
+#' writeLines(selection_files[[5]], con = file.path(tempdir(), names(selection_files)[5]))
 #'
 #' \donttest{ 
 #' #'# import data to R
-#'rvn.dat <- imp_raven(all.data = TRUE) 
+#'rvn.dat <- imp_raven(all.data = TRUE, path = tempdir()) 
 #'
 #' names(rvn.dat)
 #' 
@@ -98,19 +98,19 @@
   
   # convert to Hz
   if ("bottom.freq" %in% names(X) & khz.to.hz)
-    X$bottom.freq <- X$bottom.freq * 1000
+    X$bottom.freq <- as.numeric(X$bottom.freq) * 1000
   
   # convert to Hz
   if ("top.freq" %in% names(X) & khz.to.hz)
-    X$top.freq <- X$top.freq * 1000
+    X$top.freq <- as.numeric(X$top.freq) * 1000
   
   # convert to kHz
   if ("bottom.freq" %in% names(X) & !khz.to.hz & hz.to.khz)
-    X$bottom.freq <- X$bottom.freq / 1000
+    X$bottom.freq <- as.numeric(X$bottom.freq) / 1000
   
   # convert to kHz
   if ("top.freq" %in% names(X) & !khz.to.hz & hz.to.khz)
-    X$top.freq <- X$top.freq / 1000
+    X$top.freq <- as.numeric(X$top.freq) / 1000
   
   
 return(X)  

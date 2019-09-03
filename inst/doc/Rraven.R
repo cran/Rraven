@@ -17,6 +17,7 @@ opts_chunk$set(comment = "")
 opts_knit$set(root.dir = tempdir())
 options(width = 150, max.print = 100)
 
+
 #website to fix gifs
 #https://ezgif.com/optimize
 
@@ -46,10 +47,10 @@ options(width = 150, max.print = 100)
 #  data(list = c("Phae.long1", "Phae.long2", "Phae.long3", "Phae.long4", "selec.table", "selection_files"))
 #  
 #  #save sound files  in temporary directory
-#  writeWave(Phae.long1,"Phae.long1.wav")
-#  writeWave(Phae.long2,"Phae.long2.wav")
-#  writeWave(Phae.long3,"Phae.long3.wav")
-#  writeWave(Phae.long4,"Phae.long4.wav")
+#  writeWave(Phae.long1, "Phae.long1.wav", extensible = FALSE)
+#  writeWave(Phae.long2, "Phae.long2.wav", extensible = FALSE)
+#  writeWave(Phae.long3, "Phae.long3.wav", extensible = FALSE)
+#  writeWave(Phae.long4, "Phae.long4.wav", extensible = FALSE)
 #  
 #  #save Raven selection tables in the temporary directory
 #  out <- lapply(1:4, function(x)
@@ -61,20 +62,18 @@ options(width = 150, max.print = 100)
 
 ## ----eval= T, echo=F--------------------------------------------------------------------------------------------------------------------------------
 
-setwd(tempdir())
-
 #load example data
 data(list = c("Phae.long1", "Phae.long2", "Phae.long3", "Phae.long4", "selec.table", "selection_files"))
 
 #save sound files  in temporary directory
-writeWave(Phae.long1,"Phae.long1.wav", extensible = FALSE)
-writeWave(Phae.long2,"Phae.long2.wav", extensible = FALSE)
-writeWave(Phae.long3,"Phae.long3.wav", extensible = FALSE)
-writeWave(Phae.long4,"Phae.long4.wav", extensible = FALSE)
+writeWave(Phae.long1, file.path(tempdir(), "Phae.long1.wav"), extensible = FALSE) #save sound files
+writeWave(Phae.long2, file.path(tempdir(), "Phae.long2.wav"), extensible = FALSE)
+writeWave(Phae.long3, file.path(tempdir(), "Phae.long3.wav"), extensible = FALSE)
+writeWave(Phae.long4, file.path(tempdir(), "Phae.long4.wav"), extensible = FALSE)
 
 #save Raven selection tables in temporary directory
 out <- lapply(1:4, function(x)
-writeLines(selection_files[[x]], con = names(selection_files)[x]))
+writeLines(selection_files[[x]], con = file.path(tempdir(), names(selection_files)[x])))
 
 #providing the name of the column with the sound file names
 # rvn.dat <- imp_raven(sound.file.col = "Begin.File", all.data = FALSE)
@@ -91,7 +90,7 @@ list.files(path = tempdir(), pattern = "\\.txt$")
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
 #  
 #   #providing the name of the column with the sound file names
-#  rvn.dat <- imp_raven(all.data = TRUE)
+#  rvn.dat <- imp_raven(all.data = TRUE, path = tempdir())
 #  
 #  head(rvn.dat)
 #  
@@ -111,12 +110,12 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
 #  
-#  rvn.dat <- imp_raven(all.data = TRUE, waveform = TRUE)
+#  rvn.dat <- imp_raven(all.data = TRUE, waveform = TRUE, path = tempdir())
 #  
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
 #   #providing the name of the column with the sound file names
-#  rvn.dat <- imp_raven(sound.file.col = "End.File", warbler.format =  TRUE)
+#  rvn.dat <- imp_raven(sound.file.col = "End.File", warbler.format =  TRUE, path = tempdir())
 #  
 #  head(rvn.dat)
 #  
@@ -124,7 +123,7 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 ## ---- eval=TRUE, echo=FALSE-------------------------------------------------------------------------------------------------------------------------
 
  #providing the name of the column with the sound file names
-rvn.dat <- imp_raven(sound.file.col = "End.File", warbler.format =  TRUE)
+rvn.dat <- imp_raven(sound.file.col = "End.File", warbler.format =  TRUE, path = tempdir())
 
 kbl <- kable(head(rvn.dat), align = "c", row.names = F, escape = FALSE)
 
@@ -136,9 +135,9 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 ## ---- eval=FALSE, echo=TRUE-------------------------------------------------------------------------------------------------------------------------
 #  
 #  # convert to class selection.table
-#  rvn.dat.st <- make.selection.table(rvn.dat)
+#  rvn.dat.st <- selection_table(rvn.dat, path = tempdir())
 #  
-#  sp <- specan(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90)
+#  sp <- specan(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90, path = tempdir())
 #  
 #  head(sp)
 #  
@@ -146,9 +145,9 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 ## ---- eval=TRUE, echo=FALSE-------------------------------------------------------------------------------------------------------------------------
 
 # convert to class selection.table
-rvn.dat.st <- make.selection.table(rvn.dat)
+rvn.dat.st <- selection_table(rvn.dat)
 
-sp <- specan(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90)
+sp <- specan(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90, path = tempdir())
 
 kbl <- kable(head(sp), align = "c", row.names = F, escape = FALSE)
 
@@ -163,18 +162,18 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 #  
 #  catalog(X = rvn.dat.st[1:9, ], flim = c(1, 10), nrow = 3, ncol = 3, same.time.scale = F,
 #   ovlp = 90, parallel = 1, mar = 0.01, wl = 200, pal = reverse.heat.colors, width = 20,  labels = c("sound.files", "selec"), legend = 1,
-#   tag.pal = list(terrain.colors), tags = "sound.files")
+#   tag.pal = list(terrain.colors), tags = "sound.files", path = tempdir())
 #  
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
 #  
 #  #remove previous raven data files
-#  unlink(list.files(pattern = "\\.txt$"))
+#  unlink(list.files(pattern = "\\.txt$", path = tempdir()))
 #  
 #  #save Raven selection table in the temporary directory
-#  writeLines(selection_files[[5]], con = names(selection_files)[5])
+#  writeLines(selection_files[[5]], con = file.path(tempdir(), names(selection_files)[5]))
 #  
-#  rvn.dat <- imp_raven(all.data = TRUE)
+#  rvn.dat <- imp_raven(all.data = TRUE, path = tempdir())
 #  
 #  # Peak freq contour dif length
 #  fcts <- extract_ts(X = rvn.dat, ts.column = "Peak Freq Contour (Hz)")
@@ -185,13 +184,13 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 ## ---- eval=T, echo=FALSE----------------------------------------------------------------------------------------------------------------------------
 
 #remove previous raven data files
-unlink(list.files(pattern = "\\.txt$"))
+unlink(list.files(pattern = "\\.txt$", path = tempdir()))
 
 #save Raven selection table in the temporary directory
-writeLines(selection_files[[5]], con = names(selection_files)[5])
+writeLines(selection_files[[5]], con = file.path(tempdir(), names(selection_files)[5]))
 
 #save Raven selection table in the temporary directory
-rvn.dat <- imp_raven(all.data = TRUE) 
+rvn.dat <- imp_raven(all.data = TRUE, path = tempdir()) 
 
 # Peak freq contour dif length
 fcts <- extract_ts(X = rvn.dat, ts.column = "Peak Freq Contour (Hz)")
@@ -251,12 +250,12 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 
 ## ---- eval=F, echo=T--------------------------------------------------------------------------------------------------------------------------------
 #  
-#  dfDTW(ts.df = fcts)
+#  dfDTW(ts.df = fcts, path = tempdir())
 #  
 
 ## ---- eval=T, echo=F--------------------------------------------------------------------------------------------------------------------------------
 
-kbl <- kable(dfDTW(ts.df = fcts), align = "c", row.names = T, escape = FALSE)
+kbl <- kable(dfDTW(ts.df = fcts, path = tempdir()), align = "c", row.names = T, escape = FALSE)
 
 kbl <- kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = T, font_size = 12)
 
@@ -320,7 +319,7 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 ## ---- eval=F, echo=T--------------------------------------------------------------------------------------------------------------------------------
 #  
 #  #create new folder to put cuts
-#  dir.create("cuts")
+#  dir.create(file.path(tempdir(), "cuts"))
 #  
 #  # add a rowname column to be able to match cuts and selections
 #  selec.table$rownames <- sprintf("%02d",1:nrow(selec.table))
@@ -341,7 +340,7 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 ## ---- eval=T, echo=F--------------------------------------------------------------------------------------------------------------------------------
 
 #save Raven selection table in the temporary directory
-writeLines(selection_files[[6]], con = names(selection_files)[6])
+writeLines(selection_files[[6]], con = file.path(tempdir(), names(selection_files)[6]))
 
 # Import output (change the name of the file if you used a different one)
 xcorr.rav <- imp_corr_mat(file = "BatchCorrOutput.txt", path = tempdir())
@@ -390,7 +389,7 @@ xcorr.rvn <- xcorr.rvn[order(rownames(xcorr.rvn)), order(colnames(xcorr.rvn))]
 xcorr.rvn <- as.dist(xcorr.rvn)
 
 # measure acoustic parameters
-sp.wrblR <- specan(selec.table, bp = c(1, 11), wl = 150, pb = FALSE)
+sp.wrblR <- specan(selec.table, bp = c(1, 11), wl = 150, pb = FALSE, path = tempdir())
 
 #convert them to distance matrix
 dist.sp.wrblR <- dist(sp.wrblR)
@@ -400,23 +399,23 @@ vegan::mantel(xcorr.rvn, dist.sp.wrblR)
 
 ## ---- eval=FALSE, echo=T----------------------------------------------------------------------------------------------------------------------------
 #  # Select data for a single sound file
-#  st1 <- selec.table[selec.table$sound.files == "Phae.long1.wav",]
+#  st1 <- selec.table[selec.table$sound.files == "Phae.long1.wav", ]
 #  
 #  # Export data of a single sound file
-#  exp_raven(st1, file.name = "Phaethornis 1", khz.to.hz = TRUE)
+#  exp_raven(st1, file.name = "Phaethornis 1", khz.to.hz = TRUE, path = tempdir())
 
 ## ---- eval=FALSE, echo=T----------------------------------------------------------------------------------------------------------------------------
 #  # Select data for a single sound file
 #  st1 <- selec.table[selec.table$sound.files == "Phae.long1.wav",]
 #  
 #  # Export data of a single sound file
-#  exp_raven(st1, file.name = "Phaethornis 1", khz.to.hz = TRUE, sound.file.path = tempdir())
+#  exp_raven(st1, file.name = "Phaethornis 1", khz.to.hz = TRUE, sound.file.path = tempdir(), path = tempdir())
 #  
 
 ## ---- eval=FALSE, echo=T----------------------------------------------------------------------------------------------------------------------------
 #  
 #  exp_raven(X = selec.table, file.name = "Phaethornis multiple sound files",
-#  sound.file.path = tempdir(), single.file = TRUE)
+#  sound.file.path = tempdir(), single.file = TRUE, path = tempdir())
 
 ## ---- eval=FALSE, echo=T----------------------------------------------------------------------------------------------------------------------------
 #  # here replace with the path where Raven is install in your computer
@@ -424,7 +423,7 @@ vegan::mantel(xcorr.rvn, dist.sp.wrblR)
 #  
 #  # run function
 #  run_raven(raven.path = raven.path, sound.files = c("Phae.long1.wav", "Phae.long2.wav", "Phae.long3.wav", "Phae.long4.wav"), import = TRUE,
-#   all.data = TRUE)
+#   all.data = TRUE, path = tempdir())
 #  
 
 ## ---- eval=FALSE, echo=T----------------------------------------------------------------------------------------------------------------------------
@@ -435,7 +434,7 @@ vegan::mantel(xcorr.rvn, dist.sp.wrblR)
 
 ## ---- eval=T, echo=F--------------------------------------------------------------------------------------------------------------------------------
 
-unlink(list.files(pattern = "\\.wav$|\\.txt$", ignore.case = TRUE))
+unlink(list.files(pattern = "\\.wav$|\\.txt$", ignore.case = TRUE, path = tempdir()))
 
 
 ## ----session info, echo=F---------------------------------------------------------------------------------------------------------------------------
