@@ -23,7 +23,7 @@ options(width = 150, max.print = 100)
 
 ## ----eval = FALSE-----------------------------------------------------------------------------------------------------------------------------------
 #  
-#  download.file(url = "https://github.com/maRce10/Rraven/raw/master/gifs/Rraven.hitgub.html", destfile = "Rraven.hitgub.html")
+#  download.file(url = "https://raw.githubusercontent.com/maRce10/Rraven/master/gifs/Rraven.hitgub.html", destfile = "Rraven.github.html")
 #  
 
 ## ---- eval = FALSE----------------------------------------------------------------------------------------------------------------------------------
