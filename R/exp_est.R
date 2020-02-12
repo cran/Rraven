@@ -12,7 +12,7 @@
 #' single sound file (if \code{TRUE}) or each one as an individual sound file (default). If 
 #' exporting a single sound file the files are pasted in the same sequences as in the extended selection table. Note that to create a single sound file ALL WAVE OBJECTS IN 'X" MUST HAVE THE SAME SAMPLE RATE (check \code{attributes(X)$check.res$sample.rate}) and ideally the same bit depth (although not strictly required). If that is not the case, sample rate can be homogenize using the \code{\link[warbleR]{resample_est}} from the warbleR package.
 #' @param selection.table Logical argument to determine if a Raven sound selection table ('.txt' file) is also exported. 
-#' Default is \code{TRUE}. If \code{FALSE} then selection table is return as an object in the R environment. If exporting multiple sound files (if \code{single.file = FALSE}) the function stil exports a single selection table (in this case a multiple sound selection table).
+#' Default is \code{TRUE}. If \code{FALSE} then selection table is return as an object in the R environment. If exporting multiple sound files (if \code{single.file = FALSE}) the function still exports a single selection table (in this case a multiple sound selection table).
 #' @param pb Logical argument to control progress bar when exporting multiple sound files. Default is \code{TRUE}.
 #' @param normalize Logical argument to control if wave objects are individually normalized before exporting (or before being pasted together if \code{single.file = TRUE}). Normalization rescales amplitude values to a 16 bit dynamic range. Default is \code{FALSE}.
 #' @param parallel Numeric. Controls whether parallel computing is applied.
@@ -20,15 +20,14 @@
 #' @return Sound file(s) are saved in the provided path or current working directory. If \code{selection.table = TRUE} a Raven sound selection table with the data in 'X' will also be saved.
 #' @details The function takes wave objects contained as attributes in extended selection 
 #' tables and saves them as sound files in '.wav' format. A single or several sound files can be produced (see 'single.file' argument).  In addition, a Raven sound selection table can be saved along with the sound files. The exported selection table can be open in Raven for exploring/manipulating selections in 'X'. 
-#' @seealso \code{\link{exp_raven}};
+#' @seealso \code{\link{exp_raven}}
 #' @export
-#' @name exp_est
-#' @examples {
+#' @examples \dontrun{
 #'# load example data
-#'data(list = "Phae.long.est", package = "NatureSounds")
+#'data(list = "lbh.est", package = "NatureSounds")
 #' 
 #' # subset to 10 selections
-#' X <- Phae.long.est[1:10, ]
+#' X <- lbh.est[1:10, ]
 #' 
 #' # Export data to a single sound file
 #' exp_est(X, file.name = "test", single.file = TRUE, path = tempdir())
@@ -39,6 +38,7 @@
 #' # several files
 #' exp_est(X, single.file = FALSE, file.name = "test3", path = tempdir())
 #' }
+#' @name exp_est
 #' 
 #' @author Marcelo Araya-Salas (\email{marceloa27@@gmail.com})
 #last modification on mar-11-2019
@@ -115,6 +115,9 @@ exp_est <- function(X, file.name = NULL, path = NULL, single.file = FALSE,
      { 
       if (single.file)
       {
+        # add extension
+        if(!grepl("\\.wav$", file.name, ignore.case = TRUE)) file.name <- paste0(file.name, ".wav")
+        
         # use single name 
         st$sound.files <- file.name
         
@@ -122,7 +125,7 @@ exp_est <- function(X, file.name = NULL, path = NULL, single.file = FALSE,
         st$selec <- 1:nrow(st)
         
         # get durations of individual waves
-        durs <- sapply(wvs, duration)
+        durs <- sapply(wvs, seewave::duration)
         
         # get cummulative duration
         cumdur <- c(0, cumsum(durs)[-length(durs)])
@@ -148,13 +151,19 @@ exp_est <- function(X, file.name = NULL, path = NULL, single.file = FALSE,
         } else
         {
         #fix sound file names in st
-        st$sound.files <- paste0(st$sound.files, ".wav")
+        st$sound.files <- ifelse(grepl("\\.wav$", st$sound.files, ignore.case = TRUE), st$sound.files, paste0( st$sound.files, ".wav"))
         
         # export selection table
         if (selection.table)
           exp_raven(X = st, path = path, file.name = gsub("\\.wav$", ".txt", file.name, ignore.case = TRUE), sound.file.path = path, pb = FALSE, parallel = 1, single.file = TRUE)
         }
     } else
-    # return something if no selection table
-         return(st)
+    {
+      # return something if no selection table
+      #fix sound file names in st
+      st$sound.files <- ifelse(grepl("\\.wav$", st$sound.files, ignore.case = TRUE), st$sound.files, paste0( st$sound.files, ".wav"))
+    
+      
+               return(st)
+      }
 }

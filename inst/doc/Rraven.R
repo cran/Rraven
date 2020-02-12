@@ -38,6 +38,7 @@ options(width = 150, max.print = 100)
 #  #load packages
 #  library(warbleR)
 #  library(Rraven)
+#  
 
 ## ----eval= F, echo=T--------------------------------------------------------------------------------------------------------------------------------
 #  
@@ -160,9 +161,13 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 
 ## ---- eval = FALSE----------------------------------------------------------------------------------------------------------------------------------
 #  
-#  catalog(X = rvn.dat.st[1:9, ], flim = c(1, 10), nrow = 3, ncol = 3, same.time.scale = F,
+#  # create a color palette
+#  trc <- function(n) terrain.colors(n = n, alpha = 0.3)
+#  
+#  # plot catalog
+#  catalog(X = rvn.dat.st[1:9, ], flim = c(1, 10), nrow = 3, ncol = 3, same.time.scale = TRUE,  spec.mar = 1, box = FALSE,
 #   ovlp = 90, parallel = 1, mar = 0.01, wl = 200, pal = reverse.heat.colors, width = 20,  labels = c("sound.files", "selec"), legend = 1,
-#   tag.pal = list(terrain.colors), tags = "sound.files", path = tempdir())
+#   tag.pal = list(trc),  group.tag = "sound.files", path = tempdir())
 #  
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------

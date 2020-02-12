@@ -44,15 +44,15 @@
 #' @name imp_raven
 #' @examples
 #' 
-#' #load data 
+#' # load data 
 #' data(selection_files)
 #' 
-#' #save 'Raven' selection tables in the temporary directory 
+#' # save 'Raven' selection tables in the temporary directory 
 #' out <- lapply(1:2, function(x) 
 #' writeLines(selection_files[[x]], con = file.path(tempdir(), names(selection_files)[x])))
 #' 
 #' \donttest{
-#'#providing the name of the column with the sound file names
+#'# providing the name of the column with the sound file names
 #'rvn.dat <- imp_raven(sound.file.col = "Begin.File", all.data = FALSE, path = tempdir())
 #' 
 #' # View(rvn.dat)
@@ -183,12 +183,13 @@ pbapply::pboptions(type = ifelse(pb, "timer", "none"))
       stop("No column containing sound file names was shared by all selection table files")
     
     # fix time in multiple file selection table
+    #### ERROR HERE #######
     sl.list2 <- lapply(seq_len(length(sl.list)), function(i)
     {
       X <- sl.list[[i]]
       
       if (!name.from.file)
-        if (length(unique(X[, sfcl])) > 1 | any(grepl("offset", names(X), ignore.case = TRUE)))
+        if (length(unique(X[, sfcl])) > 1)
       { 
         if (!any(grepl("offset", names(X), ignore.case = TRUE))) {     
           message(paste0("warning: selections files from multiple sound files must contain a 'File Offset' column (check '", names(sl.list)[i],"')"))

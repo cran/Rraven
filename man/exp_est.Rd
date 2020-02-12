@@ -21,7 +21,7 @@ single sound file (if \code{TRUE}) or each one as an individual sound file (defa
 exporting a single sound file the files are pasted in the same sequences as in the extended selection table. Note that to create a single sound file ALL WAVE OBJECTS IN 'X" MUST HAVE THE SAME SAMPLE RATE (check \code{attributes(X)$check.res$sample.rate}) and ideally the same bit depth (although not strictly required). If that is not the case, sample rate can be homogenize using the \code{\link[warbleR]{resample_est}} from the warbleR package.}
 
 \item{selection.table}{Logical argument to determine if a Raven sound selection table ('.txt' file) is also exported. 
-Default is \code{TRUE}. If \code{FALSE} then selection table is return as an object in the R environment. If exporting multiple sound files (if \code{single.file = FALSE}) the function stil exports a single selection table (in this case a multiple sound selection table).}
+Default is \code{TRUE}. If \code{FALSE} then selection table is return as an object in the R environment. If exporting multiple sound files (if \code{single.file = FALSE}) the function still exports a single selection table (in this case a multiple sound selection table).}
 
 \item{pb}{Logical argument to control progress bar when exporting multiple sound files. Default is \code{TRUE}.}
 
@@ -41,12 +41,12 @@ The function takes wave objects contained as attributes in extended selection
 tables and saves them as sound files in '.wav' format. A single or several sound files can be produced (see 'single.file' argument).  In addition, a Raven sound selection table can be saved along with the sound files. The exported selection table can be open in Raven for exploring/manipulating selections in 'X'.
 }
 \examples{
-{
+\dontrun{
 # load example data
-data(list = "Phae.long.est", package = "NatureSounds")
+data(list = "lbh.est", package = "NatureSounds")
 
 # subset to 10 selections
-X <- Phae.long.est[1:10, ]
+X <- lbh.est[1:10, ]
 
 # Export data to a single sound file
 exp_est(X, file.name = "test", single.file = TRUE, path = tempdir())
@@ -57,10 +57,9 @@ exp_est(X, file.name = "test2", single.file = TRUE, normalize = TRUE, pb = FALSE
 # several files
 exp_est(X, single.file = FALSE, file.name = "test3", path = tempdir())
 }
-
 }
 \seealso{
-\code{\link{exp_raven}};
+\code{\link{exp_raven}}
 }
 \author{
 Marcelo Araya-Salas (\email{marceloa27@gmail.com})
