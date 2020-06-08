@@ -5,7 +5,7 @@
 \title{Export wave objects of extended selection tables as sound files}
 \usage{
 exp_est(X, file.name = NULL, path = NULL, single.file = FALSE, 
-selection.table = TRUE, pb = TRUE, normalize = TRUE, parallel = 1)
+selection.table = TRUE, pb = TRUE, normalize = TRUE, parallel = 1, wave.object = FALSE)
 }
 \arguments{
 \item{X}{object of class 'extended_selection_table' (objects produced by \code{\link[warbleR]{selection_table}}). More details about these objects can be found on \href{https://marce10.github.io/2018/05/15/Extended_selection_tables.html}{this link}.}
@@ -17,7 +17,7 @@ and/or the selection table (if \code{selection.table = TRUE}). Default is \code{
 function uses the current working directory. Default is \code{NULL}.}
 
 \item{single.file}{Logical argument to control if all wave objects are pooled together in a 
-single sound file (if \code{TRUE}) or each one as an individual sound file (default). If 
+single sound file (if \code{TRUE}) or each one as an individual sound file (if \code{FALSE}, default). If 
 exporting a single sound file the files are pasted in the same sequences as in the extended selection table. Note that to create a single sound file ALL WAVE OBJECTS IN 'X" MUST HAVE THE SAME SAMPLE RATE (check \code{attributes(X)$check.res$sample.rate}) and ideally the same bit depth (although not strictly required). If that is not the case, sample rate can be homogenize using the \code{\link[warbleR]{resample_est}} from the warbleR package.}
 
 \item{selection.table}{Logical argument to determine if a Raven sound selection table ('.txt' file) is also exported. 
@@ -29,6 +29,8 @@ Default is \code{TRUE}. If \code{FALSE} then selection table is return as an obj
 
 \item{parallel}{Numeric. Controls whether parallel computing is applied.
 It specifies the number of cores to be used. Default is 1 (i.e. no parallel computing).}
+
+\item{wave.object}{Logical argument to control if ONLY a single wave object is returned in the R environment (TRUE) instead of a wave file in the working directory (and a selection table if \code{selection.table = TRUE}). Default is \code{FALSE}.}
 }
 \value{
 Sound file(s) are saved in the provided path or current working directory. If \code{selection.table = TRUE} a Raven sound selection table with the data in 'X' will also be saved.
@@ -62,5 +64,5 @@ exp_est(X, single.file = FALSE, file.name = "test3", path = tempdir())
 \code{\link{exp_raven}}
 }
 \author{
-Marcelo Araya-Salas (\email{marceloa27@gmail.com})
+Marcelo Araya-Salas (\email{marcelo.araya@ucr.ac.cr})
 }

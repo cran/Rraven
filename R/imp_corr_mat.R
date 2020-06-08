@@ -52,14 +52,15 @@
 #' xcorr.rav[[2]]
 #' }
 #' 
-#' @author Marcelo Araya-Salas (\email{marceloa27@@gmail.com})
+#' @author Marcelo Araya-Salas (\email{marcelo.araya@@ucr.ac.cr})
 #last modification on sep-2-2019
 imp_corr_mat <- function(file, path = NULL){
   
   #check path to working directory
   if (is.null(path)) path <- getwd() else 
     if (!dir.exists(path)) 
-      stop("'path' provided does not exist") 
+      stop("'path' provided does not exist") else
+        path <- normalizePath(path)
   
   lns <- readLines(file.path(path, file))
   lbks <- which(lns == "")

@@ -14,6 +14,8 @@
 #'   
 #'   \code{\link{extract_ts}}: Extract time series parameters from data imported from Raven
 #'   
+#'   \code{\link{fix_path}}: Modify sound file path in Raven's selection tables 
+#'   
 #'   \code{\link{imp_corr_mat}}: Import 'Raven' batch correlator output 
 #'   
 #'   \code{\link{imp_raven}}: Import 'Raven' selections
@@ -39,7 +41,7 @@
 #' @importFrom utils read.table write.table
 #' @author Marcelo Araya-Salas
 #'   
-#' Maintainer: Marcelo Araya-Salas (\email{marceloa27@@gmail.com})
+#' Maintainer: Marcelo Araya-Salas (\email{marcelo.araya@@ucr.ac.cr})
 #'   
 #' @docType package
 #' @name Rraven

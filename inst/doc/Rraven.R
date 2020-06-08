@@ -23,7 +23,9 @@ options(width = 150, max.print = 100)
 
 ## ----eval = FALSE-----------------------------------------------------------------------------------------------------------------------------------
 #  
-#  download.file(url = "https://raw.githubusercontent.com/maRce10/Rraven/master/gifs/Rraven.hitgub.html", destfile = "Rraven.github.html")
+#  download.file(
+#    url = "https://raw.githubusercontent.com/maRce10/Rraven/master/gifs/Rraven.hitgub.html",
+#    destfile = "Rraven.github.html")
 #  
 
 ## ---- eval = FALSE----------------------------------------------------------------------------------------------------------------------------------
@@ -111,12 +113,14 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
 #  
-#  rvn.dat <- imp_raven(all.data = TRUE, waveform = TRUE, path = tempdir())
+#  rvn.dat <- imp_raven(all.data = TRUE, waveform = TRUE,
+#                       path = tempdir())
 #  
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
 #   #providing the name of the column with the sound file names
-#  rvn.dat <- imp_raven(sound.file.col = "End.File", warbler.format =  TRUE, path = tempdir())
+#  rvn.dat <- imp_raven(sound.file.col = "End.File",
+#                       warbler.format =  TRUE, path = tempdir())
 #  
 #  head(rvn.dat)
 #  
@@ -124,7 +128,8 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 ## ---- eval=TRUE, echo=FALSE-------------------------------------------------------------------------------------------------------------------------
 
  #providing the name of the column with the sound file names
-rvn.dat <- imp_raven(sound.file.col = "End.File", warbler.format =  TRUE, path = tempdir())
+rvn.dat <- imp_raven(sound.file.col = "End.File", 
+                     warbler.format =  TRUE, path = tempdir())
 
 kbl <- kable(head(rvn.dat), align = "c", row.names = F, escape = FALSE)
 
@@ -138,7 +143,8 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 #  # convert to class selection.table
 #  rvn.dat.st <- selection_table(rvn.dat, path = tempdir())
 #  
-#  sp <- specan(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90, path = tempdir())
+#  sp <- specan(X = rvn.dat, bp = "frange", wl = 150,
+#               pb = FALSE, ovlp = 90, path = tempdir())
 #  
 #  head(sp)
 #  
@@ -165,9 +171,12 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 #  trc <- function(n) terrain.colors(n = n, alpha = 0.3)
 #  
 #  # plot catalog
-#  catalog(X = rvn.dat.st[1:9, ], flim = c(1, 10), nrow = 3, ncol = 3, same.time.scale = TRUE,  spec.mar = 1, box = FALSE,
-#   ovlp = 90, parallel = 1, mar = 0.01, wl = 200, pal = reverse.heat.colors, width = 20,  labels = c("sound.files", "selec"), legend = 1,
-#   tag.pal = list(trc),  group.tag = "sound.files", path = tempdir())
+#  catalog(X = rvn.dat.st[1:9, ], flim = c(1, 10), nrow = 3, ncol = 3,
+#          same.time.scale = TRUE,  spec.mar = 1, box = FALSE,
+#          ovlp = 90, parallel = 1, mar = 0.01, wl = 200,
+#          pal = reverse.heat.colors, width = 20,
+#          labels = c("sound.files", "selec"), legend = 1,
+#          tag.pal = list(trc),  group.tag = "sound.files", path = tempdir())
 #  
 
 ## ---- eval=FALSE------------------------------------------------------------------------------------------------------------------------------------
@@ -176,7 +185,8 @@ box_css = "border: 1px solid #ddd; padding: 5px; ", extra_css = NULL)
 #  unlink(list.files(pattern = "\\.txt$", path = tempdir()))
 #  
 #  #save Raven selection table in the temporary directory
-#  writeLines(selection_files[[5]], con = file.path(tempdir(), names(selection_files)[5]))
+#  writeLines(selection_files[[5]], con = file.path(tempdir(),
+#                                          names(selection_files)[5]))
 #  
 #  rvn.dat <- imp_raven(all.data = TRUE, path = tempdir())
 #  
@@ -330,7 +340,9 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 #  selec.table$rownames <- sprintf("%02d",1:nrow(selec.table))
 #  
 #  # cut files
-#  cut_sels(X = selec.table, mar = 0.05, path = tempdir(), dest.path = file.path(tempdir(), "cuts"), labels = c("rownames", "sound.files", "selec"), pb = FALSE)
+#  cut_sels(X = selec.table, mar = 0.05, path = tempdir(), dest.path =
+#             file.path(tempdir(), "cuts"),
+#           labels = c("rownames", "sound.files", "selec"), pb = FALSE)
 #  
 #  #list cuts
 #  list.files(path = file.path(tempdir(), "cuts"))
@@ -394,7 +406,8 @@ xcorr.rvn <- xcorr.rvn[order(rownames(xcorr.rvn)), order(colnames(xcorr.rvn))]
 xcorr.rvn <- as.dist(xcorr.rvn)
 
 # measure acoustic parameters
-sp.wrblR <- specan(selec.table, bp = c(1, 11), wl = 150, pb = FALSE, path = tempdir())
+sp.wrblR <- specan(selec.table, bp = c(1, 11), wl = 150, 
+                   pb = FALSE, path = tempdir())
 
 #convert them to distance matrix
 dist.sp.wrblR <- dist(sp.wrblR)
@@ -414,27 +427,29 @@ vegan::mantel(xcorr.rvn, dist.sp.wrblR)
 #  st1 <- selec.table[selec.table$sound.files == "Phae.long1.wav",]
 #  
 #  # Export data of a single sound file
-#  exp_raven(st1, file.name = "Phaethornis 1", khz.to.hz = TRUE, sound.file.path = tempdir(), path = tempdir())
+#  exp_raven(st1, file.name = "Phaethornis 1", khz.to.hz = TRUE,
+#            sound.file.path = tempdir(), path = tempdir())
 #  
 
 ## ---- eval=FALSE, echo=T----------------------------------------------------------------------------------------------------------------------------
 #  
 #  exp_raven(X = selec.table, file.name = "Phaethornis multiple sound files",
-#  sound.file.path = tempdir(), single.file = TRUE, path = tempdir())
+#            sound.file.path = tempdir(), single.file = TRUE, path = tempdir())
 
 ## ---- eval=FALSE, echo=T----------------------------------------------------------------------------------------------------------------------------
 #  # here replace with the path where Raven is install in your computer
 #  raven.path <- "PATH_TO_RAVEN_DIRECTORY_HERE"
 #  
 #  # run function
-#  run_raven(raven.path = raven.path, sound.files = c("Phae.long1.wav", "Phae.long2.wav", "Phae.long3.wav", "Phae.long4.wav"), import = TRUE,
-#   all.data = TRUE, path = tempdir())
+#  run_raven(raven.path = raven.path, sound.files = c("Phae.long1.wav", "Phae.long2.wav", "Phae.long3.wav", "Phae.long4.wav"),
+#            import = TRUE, all.data = TRUE, path = tempdir())
 #  
 
 ## ---- eval=FALSE, echo=T----------------------------------------------------------------------------------------------------------------------------
 #  
 #  detec.res <- raven_batch_detec(raven.path = raven.path,
-#  sound.files = "BlackCappedVireo.aif", path = file.path(raven.path, "Examples"))
+#                                 sound.files = "BlackCappedVireo.aif",
+#                                 path = file.path(raven.path, "Examples"))
 #  
 
 ## ---- eval=T, echo=F--------------------------------------------------------------------------------------------------------------------------------

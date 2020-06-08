@@ -57,15 +57,16 @@
 #' path = file.path(raven.path, "Examples"), detector = "Band Limited Energy Detector")
 #' }
 #' 
-#' @author Marcelo Araya-Salas (\email{marceloa27@@gmail.com})
+#' @author Marcelo Araya-Salas (\email{marcelo.araya@@ucr.ac.cr})
 # last modification on jan-06-2020
 
 raven_batch_detec <- function(raven.path = NULL, sound.files, path = NULL, detector.type,
                               detector.preset = "Default", view.preset = "Default", relabel_colms = TRUE, pb = TRUE, parallel = 1)
 {
   
-  #check path to working directory
-  if (is.null(path)) path <- getwd() else if (!dir.exists(path)) stop("'path' provided does not exist") 
+  # check path to working directory
+  if (is.null(path)) path <- getwd() else if (!dir.exists(path)) stop("'path' provided does not exist") else
+    path <- normalizePath(path)
   
   # set progress bar back to original
   on.exit(pbapply::pboptions(type = .Options$pboptions$type), 
@@ -110,6 +111,10 @@ raven_batch_detec <- function(raven.path = NULL, sound.files, path = NULL, detec
   if (basename(sound.files[1]) == sound.files[1])
     sound.files <- file.path(path, sound.files)
   
+  # check if raven executable is "Raven" or "RavenPro" (changed in Raven Pro 1.6)
+  rav.exe <- list.files(path = raven.path, pattern =  "Raven$|Raven.app$|Raven.exe$|Raven\ Pro$|Raven\ Pro.app$|Raven\ Pro.exe$")
+  
+  
   if (pb) pbapply::pboptions(type = "timer") else pbapply::pboptions(type = "none")
   
   # set clusters for windows OS
@@ -124,12 +129,12 @@ raven_batch_detec <- function(raven.path = NULL, sound.files, path = NULL, detec
     
     if (Sys.info()[1] == "Windows")
     {  
-      comnd <- paste(shQuote(file.path(raven.path, "Raven.exe"), type = "cmd"), view.detector, paste0("-detType:", detector.type), shQuote(x), "-detTable:temp.bcv.txt -x")
+      comnd <- paste(shQuote(file.path(raven.path, rav.exe), type = "cmd"), view.detector, paste0("-detType:", detector.type), shQuote(x), "-detTable:temp.bcv.txt -x")
     } else
     {
       if (Sys.info()[1] == "Linux")
-        comnd <- paste(file.path(raven.path, "Raven"), view.detector, paste0("-detType:", detector.type), x, "-detTable:temp.bcv.txt -x") else
-          comnd <- paste("open Raven.app --args", x, view.detector, paste0("-detType:", detector.type), "-detTable:temp.bcv.txt -x") # OSX
+        comnd <- paste(file.path(raven.path, rav.exe), view.detector, paste0("-detType:", detector.type), x, "-detTable:temp.bcv.txt -x") else
+          comnd <- paste("Open",  rav.exe, "--args", x, view.detector, paste0("-detType:", detector.type), "-detTable:temp.bcv.txt -x") # OSX
     }
     
     # run raven

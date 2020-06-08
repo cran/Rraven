@@ -40,13 +40,15 @@
 #'  # fixed extension an return sound file names
 #'  match_wav_case(X = lbh_selec_table, output = "names", path = tempdir())
 #'  }   
-#' @author Marcelo Araya-Salas (\email{marceloa27@@gmail.com})
+#' @author Marcelo Araya-Salas (\email{marcelo.araya@@ucr.ac.cr})
 #last modification on sep-02-2019
 match_wav_case <- function(X, path = NULL, output = "data.frame", verbose = TRUE){
 
-# get path if not provided    
-if (is.null(path)) path <- getwd()
-
+  #check path to working directory
+  if (is.null(path)) path <- getwd() else 
+    if (!dir.exists(path)) stop("'path' provided does not exist") else
+      path <- normalizePath(path)
+    
 # list  wav files in path
 wvs <- list.files(path = path, pattern = "\\.wav$", ignore.case = TRUE)
 

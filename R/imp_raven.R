@@ -15,7 +15,7 @@
 #' @param only.spectro.view Logical. If \code{TRUE} (default) only the measurements in the Raven spectrogram view ('View' column) are returned. Ignored if \code{warbler.format == TRUE} (only spectrogram view measurements are kept). 
 #' @param recursive Logical. If \code{TRUE} the listing recurses into sub-directories.
 #' @param name.from.file Logical. If \code{TRUE} the sound file names are extracted from the selection text file name. 
-#' It assumes that selections files contained the suffix "Table.1.selections.txt" or "selections.txt". 
+#' It assumes that selections files contained the suffix "Table.1.selections.txt", "selections.txt" or ".txt" (in that order). 
 #' Note that by default it will assume that the extension file name is ".wav". This can be control using the
 #' argument 'ext.case'. Default is \code{FALSE}). Ignored if sound.file.col' is provided and/or all.data is \code{TRUE}). Note that
 #' the time information for selection tables with multiple sound files won't be corrected if \code{name.from.file = TRUE}.
@@ -58,7 +58,7 @@
 #' # View(rvn.dat)
 #' }
 #' 
-#' @author Marcelo Araya-Salas (\email{marceloa27@@gmail.com})
+#' @author Marcelo Araya-Salas (\email{marcelo.araya@@ucr.ac.cr})
 #last modification on nov-7-2017
 
 imp_raven <- function(path = NULL, warbler.format = FALSE, all.data = FALSE, files = NULL,  
@@ -70,7 +70,8 @@ imp_raven <- function(path = NULL, warbler.format = FALSE, all.data = FALSE, fil
   
   #check path to working directory
   if (is.null(path)) path <- getwd() else 
-    if (!dir.exists(path)) stop("'path' provided does not exist") 
+    if (!dir.exists(path)) stop("'path' provided does not exist") else
+      path <- normalizePath(path)
   
   if (!is.null(ext.case)) 
     if (!ext.case %in% c("upper", "lower")) stop("'ext.case' should be either 'upper' or 'lower'") else
@@ -170,6 +171,7 @@ pbapply::pboptions(type = ifelse(pb, "timer", "none"))
     # temporary put together to check sound file name column
     temp.sls <- do.call("rbind", sl.list2)
   
+    if (!name.from.file){
     # check if file containing sound file name columns and choose sound file column
     sfcls <- names(temp.sls)[names(temp.sls) %in% c("Begin File", "End File", "Begin Path",  "End Path")]
     
@@ -181,6 +183,7 @@ pbapply::pboptions(type = ifelse(pb, "timer", "none"))
     
     if((length(sfcl) == 0 | is.na(sfcl)) & !name.from.file) 
       stop("No column containing sound file names was shared by all selection table files")
+    }
     
     # fix time in multiple file selection table
     #### ERROR HERE #######
@@ -240,8 +243,8 @@ pbapply::pboptions(type = ifelse(pb, "timer", "none"))
         sfcl <- "sound.files"
       
       if (ext.case == "lower")
-        sls$sound.files <- gsub(pattern = "\\.Table\\.[[:digit:]].selections.txt", replacement = ".wav", x = sls$selec.file) else
-          sls$sound.files <- gsub(pattern = "\\.Table\\.[[:digit:]].selections.txt", replacement = ".WAV", x = sls$selec.file) 
+        sls$sound.files <- gsub(pattern = "\\.Table\\.[[:digit:]].selections.txt$|\\.selections.txt$|\\.txt$", replacement = ".wav", x = sls$selec.file) else
+          sls$sound.files <- gsub(pattern = "\\.Table\\.[[:digit:]].selections.txt$|\\.selections.txt$|\\.txt$", replacement = ".WAV", x = sls$selec.file) 
     }
     
     # delete offset column
