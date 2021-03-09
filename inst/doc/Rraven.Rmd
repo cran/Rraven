@@ -53,7 +53,7 @@ options(width = 150, max.print = 100)
 ```
  &nbsp; 
 
-The `Rraven` package is designed to facilitate the exchange of data between R and  [Raven sound analysis software](https://ravensoundsoftware.com) ([Cornell Lab of Ornithology](https://www.birds.cornell.edu)). [Raven](https://ravensoundsoftware.com) provides very  powerful tools for the analysis of (animal) sounds. R can simplify the automatization of complex routines of analyses. Furthermore, R packages as [warbleR](https://cran.r-project.org/package=warbleR), [seewave](https://cran.r-project.org/package=seewave) and [monitoR](https://cran.r-project.org/package=monitoR) (among others) provide additional methods of analysis, working as a perfect complement for those found in [Raven](https://ravensoundsoftware.com). Hence, bridging these applications can largely expand the bioacoustician's toolkit.
+The `Rraven` package is designed to facilitate the exchange of data between R and  [Raven sound analysis software](https://ravensoundsoftware.com) ([Cornell Lab of Ornithology](https://www.birds.cornell.edu/home)). [Raven](https://ravensoundsoftware.com) provides very  powerful tools for the analysis of (animal) sounds. R can simplify the automatization of complex routines of analyses. Furthermore, R packages as [warbleR](https://cran.r-project.org/package=warbleR), [seewave](https://cran.r-project.org/package=seewave) and [monitoR](https://cran.r-project.org/package=monitoR) (among others) provide additional methods of analysis, working as a perfect complement for those found in [Raven](https://ravensoundsoftware.com). Hence, bridging these applications can largely expand the bioacoustician's toolkit.
 
 Currently, most analyses in [Raven](https://ravensoundsoftware.com) cannot be run in the background from a command terminal. Thus, most `Rraven` functions are design to simplify the exchange of data between the two programs, and in some cases, export files to  [Raven](https://ravensoundsoftware.com) for further analysis. This vignette provides detailed examples for each function in `Rraven`, including both the R code as well as the additional steps in [Raven](https://ravensoundsoftware.com) required to fully accomplished the analyses. Raven Pro must be installed to be able to run some of the code. Note that the animations explaining these additional [Raven](https://ravensoundsoftware.com) steps are shown in more detail in the [github](https://github.com/maRce10/Rraven) version of this vignette, which can be downloaded as follows (saves the file "Rraven.github.html" in your current working directory):
 
@@ -221,7 +221,7 @@ The data frame contains the following columns: sound.files, channel, selec, star
 # convert to class selection.table
 rvn.dat.st <- selection_table(rvn.dat, path = tempdir())
 
-sp <- specan(X = rvn.dat, bp = "frange", wl = 150, 
+sp <- spectro_analysis(X = rvn.dat, bp = "frange", wl = 150, 
              pb = FALSE, ovlp = 90, path = tempdir())
 
 head(sp)
@@ -233,7 +233,7 @@ head(sp)
 # convert to class selection.table
 rvn.dat.st <- selection_table(rvn.dat)
 
-sp <- specan(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90, path = tempdir())
+sp <- spectro_analysis(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90, path = tempdir())
 
 kbl <- kable(head(sp), align = "c", row.names = F, escape = FALSE)
 
@@ -275,7 +275,7 @@ This is just to mention a few analysis that can be implemented in [warbleR](http
 
 ### *extract_ts*
 
-The function extracts parameters encoded as time series in [Raven](https://ravensoundsoftware.com) selection tables. The resulting data frame can be directly input into functions for time series analysis of acoustic signals as in the [warbleR](https://cran.r-project.org/package=warbleR) function `dfDTW`. The function needs an R data frame, so the data should have been previously imported using `imp_raven`. This example uses the `selection_file.ts` example data that comes with `Rraven`: 
+The function extracts parameters encoded as time series in [Raven](https://ravensoundsoftware.com) selection tables. The resulting data frame can be directly input into functions for time series analysis of acoustic signals as in the [warbleR](https://cran.r-project.org/package=warbleR) function `freq_DTW`. The function needs an R data frame, so the data should have been previously imported using `imp_raven`. This example uses the `selection_file.ts` example data that comes with `Rraven`: 
 
 
 ```{r, eval=FALSE}
@@ -376,18 +376,18 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 ```
  &nbsp; 
 
-The time series data frame can be directly input into the `dfDTW` [warbleR](https://cran.r-project.org/package=warbleR) function to calculate [Dynamic Time Warping](https://en.wikipedia.org/wiki/Dynamic_time_warping) distances:
+The time series data frame can be directly input into the `freq_DTW` [warbleR](https://cran.r-project.org/package=warbleR) function to calculate [Dynamic Time Warping](https://en.wikipedia.org/wiki/Dynamic_time_warping) distances:
 
 ```{r, eval=F, echo=T}
 
-dfDTW(ts.df = fcts, path = tempdir())
+freq_DTW(ts.df = fcts, path = tempdir())
 
 ```
 &nbsp;
 
 ```{r, eval=T, echo=F}
 
-kbl <- kable(dfDTW(ts.df = fcts, path = tempdir()), align = "c", row.names = T, escape = FALSE)
+kbl <- kable(freq_DTW(ts.df = fcts, path = tempdir()), align = "c", row.names = T, escape = FALSE)
 
 kbl <- kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = T, font_size = 12)
 

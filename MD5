@@ -1,9 +1,9 @@
-426806c2eaa311b06a071cd432f54365 *DESCRIPTION
+5f61538409118dea2033bb1d324c8545 *DESCRIPTION
 4a38dac3522a07780686112518f15bf3 *NAMESPACE
-a5abf67171f1a1c0b48ccc6dbd0f1d10 *NEWS.md
+d5de8756341b658c488eca40d3b896c7 *NEWS.md
 5db27c59bfd1b6d31b7a08d36f91e6a8 *R/Rraven-package.R
 0ab6fb241ef62bdb2d3a75963a018a1e *R/exp_empty_sels.R
-5d5988070ea85b93ea68a3c8a1012128 *R/exp_est.R
+2f9d6dbccd7ba3320c580f85021bcadc *R/exp_est.R
 618a52e891debb7bf5d5d2ed308888dc *R/exp_raven.R
 01bbe053708528b3682b12085c1f99c0 *R/extract_ts.R
 60cb63ffcf9c43ee2dbe4a5f5d7e1b39 *R/fix_path.R
@@ -20,11 +20,11 @@ fe938ddb26ba03130ef1a6862b3f740f *R/run_raven.R
 b89014efe9a52250135fff9c1d5a2c86 *build/vignette.rds
 5cc3141df6582efeb33d8d71a843f78a *data/selection_files.rda
 b254cef52dbe81c2774f9980b4f56c03 *inst/CITATION
-b9537905678c7fea4debaecab4c65a07 *inst/doc/Rraven.R
-1f378eac46149e37ad68e8926e5a59a3 *inst/doc/Rraven.Rmd
-75815f3c3b0efb6e6b8eeb2ad29e2964 *inst/doc/Rraven.html
+0c70a73c613519160047eb1839b2a641 *inst/doc/Rraven.R
+e506d15c04019c7e1f2e748c5240bd8d *inst/doc/Rraven.Rmd
+2ab0e179571eb8a82704f2b9d77e61be *inst/doc/Rraven.html
 791330f797996d6d5224e939e33db973 *man/exp_empty_sels.Rd
-90d8aea81a452162dcfcb17880946b18 *man/exp_est.Rd
+65744ce6447f73b2c20281beb9d7c0d1 *man/exp_est.Rd
 bb5f84437fcac4315b2a6ee732f4be5b *man/exp_raven.Rd
 19e173b048ea5ea99698b2d1aa64d141 *man/extract_ts.Rd
 6d7562ffd2ef5244e7aa1a798e5d740d *man/fix_path.Rd
@@ -38,7 +38,7 @@ f76f63c46892e9ea41b5a39c355f3bb9 *man/run_raven.Rd
 225becb466a84886a491315a09eb51d8 *man/selection_files.Rd
 dbbc85af6b148ac6ddd267c9cf587c9f *man/to_sound_selection.Rd
 cfe1a84f1c2cb484fb740c7228804691 *vignettes/Catalog.jpeg
-1f378eac46149e37ad68e8926e5a59a3 *vignettes/Rraven.Rmd
+e506d15c04019c7e1f2e748c5240bd8d *vignettes/Rraven.Rmd
 ba47884d5abab476d45b32d823b51735 *vignettes/opt2_short_exp_raven1.gif
 f18661997b554084853cceb621b2156f *vignettes/opt2_short_exp_raven2.gif
 e3412bd111fde602cc7a6906f06b79d2 *vignettes/opt2_short_raven_batch_detec.gif

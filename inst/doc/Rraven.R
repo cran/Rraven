@@ -143,7 +143,7 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 #  # convert to class selection.table
 #  rvn.dat.st <- selection_table(rvn.dat, path = tempdir())
 #  
-#  sp <- specan(X = rvn.dat, bp = "frange", wl = 150,
+#  sp <- spectro_analysis(X = rvn.dat, bp = "frange", wl = 150,
 #               pb = FALSE, ovlp = 90, path = tempdir())
 #  
 #  head(sp)
@@ -154,7 +154,7 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 # convert to class selection.table
 rvn.dat.st <- selection_table(rvn.dat)
 
-sp <- specan(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90, path = tempdir())
+sp <- spectro_analysis(X = rvn.dat, bp = "frange", wl = 150, pb = FALSE, ovlp = 90, path = tempdir())
 
 kbl <- kable(head(sp), align = "c", row.names = F, escape = FALSE)
 
@@ -265,12 +265,12 @@ kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "respo
 
 ## ---- eval=F, echo=T--------------------------------------------------------------------------------------------------------------------------------
 #  
-#  dfDTW(ts.df = fcts, path = tempdir())
+#  freq_DTW(ts.df = fcts, path = tempdir())
 #  
 
 ## ---- eval=T, echo=F--------------------------------------------------------------------------------------------------------------------------------
 
-kbl <- kable(dfDTW(ts.df = fcts, path = tempdir()), align = "c", row.names = T, escape = FALSE)
+kbl <- kable(freq_DTW(ts.df = fcts, path = tempdir()), align = "c", row.names = T, escape = FALSE)
 
 kbl <- kable_styling(kbl, bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = T, font_size = 12)
 
