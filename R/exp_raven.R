@@ -10,8 +10,8 @@
 #' selection files are generated (see 'single.file') then the sound files names are added to the provided 'file.name'. Ignored if \code{single.file = FALSE}.
 #' @param khz.to.hz Logical. Controls if frequency variables should be converted from kHz (the unit used by other bioacoustic analysis R packages like \href{https://cran.r-project.org/package=warbleR}{warbleR}) to Hz (the unit used by Raven). Default is \code{TRUE}.
 #' @param sound.file.path A character string indicating the path of the 
-#' directory containing the sound file(s). Providing this information allows
-#'  to open both sound file and selection table simultaneously. This can be
+#' directory containing the sound file(s). Providing this information allows 
+#' to open both sound file and selection table simultaneously. This can be
 #'  done by using the 'File > Open selection table' option in 'Raven' (or drag/drop the 
 #' selection file into Raven). Default is \code{NULL}. This argument is required when
 #' exporting selections from multiple sound files.
