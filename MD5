@@ -1,6 +1,6 @@
-3ba91ac617e41711d4d74e8cc142f9b4 *DESCRIPTION
+1021e29afe663db0738cbd470a48f70a *DESCRIPTION
 4a38dac3522a07780686112518f15bf3 *NAMESPACE
-cd9868625ba342b7062df86a5f741526 *NEWS.md
+021cbb82c24c346d160886ce94ff7b54 *NEWS.md
 efbaec92e0fca519fb3e83b79f04af67 *R/Rraven-package.R
 ae5c321481465a44f4c341a185d4a0a3 *R/exp_empty_sels.R
 07dfcd0e60230c0cb860840a624db800 *R/exp_est.R
@@ -17,13 +17,13 @@ a71cc54623e788b23344377f0725f240 *R/internal_functions.R
 6f52415356d5204cfccc7ddb8a03a60f *R/run_raven.R
 9691ebd7a2efce555a7920639e56d60b *R/selection_files.R
 6cac730a4c8c8eeddc0396be40d847d2 *R/to_sound_selection.R
-e02e3c730a7ea7614efa01d55d5cc257 *README.md
-a242afe3046e00a297fcada3ebfeb7ee *build/vignette.rds
-48d129708dc2365479c57a28d8a40721 *data/selection_files.rda
+945663c959f5b32085824c15db6e9e57 *README.md
+3c37d76e8e0ac5a0a79778ba618e7f75 *build/vignette.rds
+3a7a3cc468390fc14f1d7ef8da396768 *data/selection_files.rda
 78d8a163a6e8e3c880f3d8eb45959eb6 *inst/CITATION
 99331b2bfc2db1aca4fc732211f251a4 *inst/doc/Rraven.R
 2d2ebd7dd4e71d15023e22901cf9bdf6 *inst/doc/Rraven.Rmd
-30d73033d46e63b23723c502e2d3a8da *inst/doc/Rraven.html
+ed3dd7b9921b2be4fe9b8cafc5f304e1 *inst/doc/Rraven.html
 06a18968fad8a21082d3950374ab28ad *man/exp_empty_sels.Rd
 1610930c62f19a55bdce4cab29d09a83 *man/exp_est.Rd
 87d719559f6e682ea92e5f30923267ba *man/exp_raven.Rd
